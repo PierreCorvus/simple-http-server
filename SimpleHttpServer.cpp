@@ -2,10 +2,11 @@
 //
 
 #include <iostream>
-
+#include "Socket/ServerSocket.h"
 int main()
 {
-    std::cout << "Hello World!\n";
+    std::cout << InitSocketLib()<< " Hello World!\n";
+
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
