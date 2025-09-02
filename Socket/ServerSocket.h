@@ -6,8 +6,8 @@ class ServerSocket
 {
 public:
 	ServerSocket(std::string host, unsigned int port) {
-
-
+		this->host = host;
+		this->port = port;
 	}
 	int Listen();
 protected:

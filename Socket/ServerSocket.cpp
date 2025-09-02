@@ -12,7 +12,7 @@ int InitSocketLib() {
     if (wsaErr != 0) {
         return wsaErr;
     }
-    WSACleanup();
+    /*WSACleanup();*/
     return 0;
 }
 
@@ -29,7 +29,7 @@ int ServerSocket::Listen() {
     }
     sockaddr_in service;
     service.sin_family = AF_INET;
-    InetPton(AF_INET, _T("192.168.1.1"), &service.sin_addr.s_addr);
+    InetPton(AF_INET, _T("127.0.0.1"), &service.sin_addr.s_addr);
     service.sin_port = htons(this->port); 
     // Use the bind function
     if (bind(serverSocket, reinterpret_cast<SOCKADDR*>(&service), sizeof(service)) == SOCKET_ERROR) {
