@@ -2,7 +2,7 @@
 #include <winsock2.h>
 #include <Ws2tcpip.h>
 #include <tchar.h>
-#define BUFFER_SIZE 1024
+
 #define _WINSOCK_DEPRECATED_WARNINGS
 int InitSocketLib() {
     WSADATA wsaData;
@@ -52,12 +52,14 @@ int ServerSocket::Listen() {
     char receiveBuffer[BUFFER_SIZE];
     int rbyteCount = recv(acceptSocket, receiveBuffer, BUFFER_SIZE, 0);
     if (rbyteCount < 0) {
-        return 0;
-    }
-    char buffer[BUFFER_SIZE]="Aog";
-    int sbyteCount = send(acceptSocket, buffer, BUFFER_SIZE, 0);
-    if (sbyteCount == SOCKET_ERROR) {
         return -5;
+    }
+
+    char buffer[BUFFER_SIZE];
+    auto response= this->processData(std::string(receiveBuffer));
+    int sbyteCount = send(acceptSocket, response.c_str(), BUFFER_SIZE, 0);
+    if (sbyteCount == SOCKET_ERROR) {
+        return -6;
     }
     return 0;
 }

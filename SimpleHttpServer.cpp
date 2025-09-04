@@ -3,13 +3,27 @@
 
 #include <iostream>
 #include "Socket/ServerSocket.h"
+
+class BasicSocket: public ServerSocket {
+public:
+    BasicSocket(std::string host, unsigned int port) : ServerSocket(host, port) {
+
+    }
+protected:
+    std::string processData(std::string recieved) override {
+        std::cout << recieved << std::endl;
+        return "HTTP/1.1 200 OK\nContent-Type: text/html; charset=utf-8\nConnection:close\n Aaaaa\r\n\r\n";
+    }
+};
+
 int main()
 {
     std::cout << InitSocketLib()<< " Hello World!\n";
-    auto s = ServerSocket("127.0.0.1", 8000);
-    
+    auto s = BasicSocket("127.0.0.1", 8000);
     std::cout << s.Listen() <<std::endl;
 }
+
+
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
 // Debug program: F5 or Debug > Start Debugging menu
